@@ -1,0 +1,41 @@
+{
+  "name": "farmstand",
+  "version": "0.0.1",
+  "description": "FarmStand app which connects local farmers with their community",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "gulp watch",
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sharath Udupa",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sharathudupa/farmstand.git"
+  },
+  "devDependencies": {
+    "babelify": "^6.4.0",
+    "browserify": "^12.0.0",
+    "envify": "^3.4.0",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "reactify": "^1.1.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.5.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.0",
+    "flux": "^2.1.1",
+    "keymirror": "^0.1.1",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.0"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify"
+    ]
+  }
+}
