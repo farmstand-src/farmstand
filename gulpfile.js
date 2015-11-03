@@ -6,11 +6,10 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
-var babel = require('babelify');
-var exit = require('gulp-exit');
+var babelify = require('babelify');
 
 function compile(watch) {
-  var bundler = browserify('./src/scripts/app.js', { debug: true }).transform(babel);
+  var bundler = browserify('./src/scripts/app.js', { debug: true }).transform(babelify);
 
   if (watch) {
     bundler = watchify(bundler);
@@ -41,7 +40,7 @@ function watch() {
 };
 
 gulp.task('copyStatic', function() {
-  gulp.src(['./src/index.html']).pipe(gulp.dest('./build'));
+  return gulp.src(['./src/index.html']).pipe(gulp.dest('./build'));
 });
 
 gulp.task('build', ['copyStatic'], function() { return compile(); });
