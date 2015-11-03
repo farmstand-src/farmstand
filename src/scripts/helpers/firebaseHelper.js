@@ -12,6 +12,10 @@ export default class FirebaseHelper {
     firebaseRef.authWithPassword(authInput, authCallback);
   }
   
+  static logout() {
+    firebaseRef.unauth();
+  }
+  
   static onAuth(onAuthHandler) {
     firebaseRef.onAuth(onAuthHandler);
   }
