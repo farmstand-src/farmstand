@@ -17,6 +17,7 @@ export default class Register extends React.Component {
     let email = this.refs.email.value;
     let pass = this.refs.pass.value;
     let name = this.refs.name.value;
+    let farmer = this.refs.farmer.value;
     
     FirebaseHelper.createUser(
       { email: email, password: pass},
@@ -25,7 +26,7 @@ export default class Register extends React.Component {
           this.setState({error: true});
         } else {
           FirebaseHelper.addUser(
-            { user_id: userData.uid, name: name },
+            { user_id: userData.uid, name: name, isFarmer: !!farmer },
             (error) => {
                if (error) {
                   this.setState({error: true});
@@ -51,7 +52,8 @@ export default class Register extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <label><input ref="name" placeholder="name" defaultValue="Joe Plumber" /></label>
         <label><input ref="email" placeholder="email" defaultValue="joe@example.com" /></label>
-        <label><input ref="pass" placeholder="password" /></label><br />
+        <label><input ref="pass" placeholder="password" /></label>
+        <label>Farmer ?<input ref="farmer" type="checkbox" /></label><br />
         <button type="submit">register</button>
         {this.state.error && (
           <p>Registration failed</p>
