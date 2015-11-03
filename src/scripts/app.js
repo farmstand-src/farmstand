@@ -5,6 +5,8 @@ import { createHistory, useBasename } from 'history'
 import FirebaseHelper from './helpers/firebaseHelper.js';
 import Login from './components/login.js';
 import Logout from './components/logout.js';
+import Register from './components/register.js';
+import About from './components/about.js';
 
 // for developer tools
 window.React = React;
@@ -53,6 +55,8 @@ ReactDOM.render(
     <Route path="/" component={App}>
       <Route path="login" component={Login}/>
       <Route path="logout" component={Logout}/>
+      <Route path="register" component={Register}/>
+      <Route path="about" component={About}/>
     </Route>
   </Router>,
   document.body

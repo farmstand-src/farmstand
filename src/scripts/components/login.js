@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Link} from 'react-router';
 import FirebaseHelper from '../helpers/firebaseHelper.js';
 
 export default class Login extends React.Component {
@@ -10,7 +11,6 @@ export default class Login extends React.Component {
     };
     
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAuthCallback = this.handleAuthCallback.bind(this);
   }
   
   handleSubmit(e) {
@@ -21,16 +21,13 @@ export default class Login extends React.Component {
     
     FirebaseHelper.authWithPassword(
       { "email": email, "password": pass },
-      this.handleAuthCallback
-    );
-  }
-  
-  handleAuthCallback(error, authData) {
-    if (error) {
-      this.setState({error: true});
-    } else {
-      this.setState({error: false});
-    }
+      (error, authData) => {
+        if (error) {
+          this.setState({error: true});
+        } else {
+          this.props.history.replaceState(null, '/about');
+        }
+      });
   }
   
   render() {
@@ -40,9 +37,9 @@ export default class Login extends React.Component {
         <label><input ref="pass" placeholder="password" /></label> (hint: password1)<br />
         <button type="submit">login</button>
         {this.state.error && (
-          <p>Bad login information</p>
+          <p>Login Failed, do you need to <Link to="/register">register</Link>?</p>
         )}
       </form>
-    )
+    );
   }
 }
