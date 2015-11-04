@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link} from 'react-router';
-import { createHistory, useBasename } from 'history'
+import { createHistory, useBasename } from 'history';
+import 'babel-polyfill';
 import FirebaseHelper from './helpers/firebaseHelper.js';
 import Login from './components/login.js';
 import Logout from './components/logout.js';
@@ -56,7 +57,7 @@ ReactDOM.render(
       <Route path="login" component={Login}/>
       <Route path="logout" component={Logout}/>
       <Route path="register" component={Register}/>
-      <Route path="about" component={About}/>
+      <Route path="about/:userId" component={About}/>
     </Route>
   </Router>,
   document.body

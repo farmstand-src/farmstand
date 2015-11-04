@@ -19,32 +19,16 @@ export default class Register extends React.Component {
     let name = this.refs.name.value;
     let farmer = this.refs.farmer.value;
     
-    FirebaseHelper.createUser(
-      { email: email, password: pass},
-      (error, userData) => {
-        if (error) {
-          this.setState({error: true});
-        } else {
-          FirebaseHelper.addUser(
-            { user_id: userData.uid, name: name, isFarmer: !!farmer },
-            (error) => {
-               if (error) {
-                  this.setState({error: true});
-                } else {
-                  FirebaseHelper.authWithPassword(
-                    {email: email, password: pass},
-                    (error, authData) => {
-                      if (error) {
-                        // weird this would fail here!
-                        this.setState({error: true});
-                      } else {
-                        this.props.history.replaceState(null, '/about');
-                      }
-                    });
-                }
-            });
-        }
-      });
+    FirebaseHelper
+      .createUser({ email: email, password: pass})
+      .then((userData) => {
+        return FirebaseHelper.addUser({user_id: userData.uid, name: name, isFarmer: !!farmer})})
+      .then(() => {
+        return FirebaseHelper.authWithPassword({email: email, password: pass})})
+      .then((authData) => {
+        this.props.history.replaceState(null, '/about/' + authData.uid)})
+      .catch((error) => {
+        this.setState({error: true})});
   }
   
   render() {

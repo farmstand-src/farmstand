@@ -28,6 +28,8 @@
     "watchify": "^3.5.0"
   },
   "dependencies": {
+    "babel": "^6.0.15",
+    "babel-polyfill": "^6.0.16",
     "classnames": "^2.2.0",
     "flux": "^2.1.1",
     "history": "^1.13.0",

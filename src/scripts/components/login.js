@@ -19,15 +19,12 @@ export default class Login extends React.Component {
     let email = this.refs.email.value;
     let pass = this.refs.pass.value;
     
-    FirebaseHelper.authWithPassword(
-      { "email": email, "password": pass },
-      (error, authData) => {
-        if (error) {
-          this.setState({error: true});
-        } else {
-          this.props.history.replaceState(null, '/about');
-        }
-      });
+    FirebaseHelper
+      .authWithPassword({ "email": email, "password": pass })
+      .then((authData) => {
+        this.props.history.replaceState(null, '/about/' + authData.uid)})
+      .catch((error) => {
+        this.setState({error: true})});
   }
   
   render() {

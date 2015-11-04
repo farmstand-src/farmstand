@@ -9,12 +9,34 @@ export default class FirebaseHelper {
     return firebaseRef.getAuth();
   }
   
-  static createUser(authInput, createCallback) {
-    firebaseRef.createUser(authInput, createCallback);
+  static createUser(authInput) {
+    return new Promise((resolve, reject) => {
+      firebaseRef.createUser(
+        authInput,
+        (error, userData) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(userData);
+          }
+        }
+      );
+    });
   }
   
-  static authWithPassword(authInput, authCallback) {
-    firebaseRef.authWithPassword(authInput, authCallback);
+  static authWithPassword(authInput) {
+    return new Promise((resolve, reject) => {
+      firebaseRef.authWithPassword(
+        authInput,
+        (error, authData) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(authData);
+          }
+        }
+      );
+    });
   }
   
   static logout() {
@@ -27,7 +49,34 @@ export default class FirebaseHelper {
   
   static addUser(userData, addUserCallback) {
     //TODO: need to validate userData
-    usersRef.child(userData.user_id).set(userData, addUserCallback);
+    return new Promise((resolve, reject) => {
+      usersRef.child(userData.user_id).set(
+        userData,
+        (error) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve();
+          }
+        }
+      );
+    });
+  }
+  
+  static getUser(userId) {
+    return new Promise((resolve, reject) => {
+      usersRef.child(userId).once(
+        'value', 
+        (userDataSnapshot) => {
+          //TODO: need to validate snapshot
+          resolve(userDataSnapshot.val());
+        },
+        (error) => {
+          reject(error);
+        }
+      );
+    });
   }
 }
+
 
